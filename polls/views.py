@@ -10,10 +10,11 @@ from .forms import QuestionForm
 class IndexView(generic.ListView):
     template_name = 'polls/index.html'
     context_object_name = 'latest_question_list'
+    paginate_by = 5
 
     def get_queryset(self):
         """Return the last five published questions."""
-        return Question.objects.order_by('-pub_date')[:5]
+        return Question.objects.order_by('-pub_date')
 
 
 class DetailView(generic.DetailView):
@@ -31,7 +32,7 @@ def add_question(request):
         if form.is_valid():
             question_item = form.save(commit=False)
             question_item.save()
-            return HttpResponseRedirect('/polls')
+            return HttpResponseRedirect(reverse('polls:index'))
     else:
         form = QuestionForm()
     return render(request, 'polls/add.html', {'form': form})
