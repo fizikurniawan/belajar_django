@@ -4,16 +4,17 @@ from django.urls import reverse
 from django.views import generic
 
 from .models import Choice, Question
-from .forms import QuestionForm
+from .forms import QuestionForm, ChoiceForm
 
 
 class IndexView(generic.ListView):
     template_name = 'polls/index.html'
     context_object_name = 'latest_question_list'
+    paginate_by = 5
 
     def get_queryset(self):
         """Return the last five published questions."""
-        return Question.objects.order_by('-pub_date')[:5]
+        return Question.objects.order_by('-pub_date')
 
 
 class DetailView(generic.DetailView):
@@ -31,9 +32,22 @@ def add_question(request):
         if form.is_valid():
             question_item = form.save(commit=False)
             question_item.save()
-            return HttpResponseRedirect('/polls')
+            return HttpResponseRedirect(reverse('polls:index'))
     else:
         form = QuestionForm()
+    return render(request, 'polls/add.html', {'form': form})
+
+def add_choice(request, question_id):
+    question = get_object_or_404(Question, pk=question_id)
+    if request.method == 'POST':
+        form = ChoiceForm(request.POST)
+        if form.is_valid():
+            choice_item = form.save(commit=False)
+            choice_item.question_id = question_id
+            choice_item.save()
+            return HttpResponseRedirect(reverse('polls:detail', args=(question.id,)))
+    else:
+        form = ChoiceForm
     return render(request, 'polls/add.html', {'form': form})
 
 def vote(request, question_id):
