@@ -1,9 +1,9 @@
-
+<title>Belajar Django</title>
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}">
 <ul id="nav">
     <li><a href="{% url 'polls:index' %}" >Home</a></li>
-    <li><a href="{% url 'polls:add-question' %}">Tambah Question</a></li>
+    <li><a href="{% url 'polls:add-question' %}">New Question</a></li>
     <li><a href="{% url 'polls:add-question' %}"> Test </a></li>
 </ul>
 <div class="content container">
@@ -23,7 +23,7 @@
     {% endif %}
     {% for i in paginator.page_range %}
       {% if page_obj.number == i %}
-        <li><a href="#">(current)</a> </li>
+          <li style="background-color:red" ><a href="#">{{i}}</a> </li>
       {% else %}
         <li><a href="?page={{ i }}">{{ i }}</a></li>
       {% endif %}
