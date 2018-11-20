@@ -1,7 +1,6 @@
-{% load static %}
+{% extends "shared/base.html" %}
 
-<link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}">
-
+{% block content %}
 {% if latest_question_list %}
     <table>
     {% for question in latest_question_list %}
@@ -14,25 +13,4 @@
     <p>No polls are available.</p>
 {% endif %}
 
-{% if is_paginated %}
-  <ul class="pagination">
-    {% if page_obj.has_previous %}
-      <li><a href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
-    {% else %}
-      <li class="disabled"><a>&laquo;</a></li>
-    {% endif %}
-    {% for i in paginator.page_range %}
-      {% if page_obj.number == i %}
-        <li><a href="#">(current)</a> </li>
-      {% else %}
-        <li><a href="?page={{ i }}">{{ i }}</a></li>
-      {% endif %}
-    {% endfor %}
-    {% if page_obj.has_next %}
-      <li><a href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
-    {% else %}
-      <li><a href="#">&raquo;</a></li>
-    {% endif %}
-  </ul>
-{% endif %}
-
+{% endblock %}
