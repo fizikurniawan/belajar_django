@@ -1,37 +1,21 @@
 <title>Belajar Django</title>
 {% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}">
-<ul id="nav">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}">
+    <title>Django People</title>
+  </head>
+<ul class="navbar navbar-expand-lg navbar-dark bg-dark">
     <li><a href="{% url 'polls:index' %}" >Home</a></li>
     <li><a href="{% url 'polls:add-question' %}">New Question</a></li>
     <li><a href="{% url 'polls:add-question' %}"> Test </a></li>
 </ul>
-<div class="content container">
-	<div class="row">
-		<div class="col-md-8">
-		{% block content %}
-		{% endblock %}
-		</div>
-	</div>
+<div class="content">
+    {% block content %}
+        {% block paginator %}   
+        {% endblock %}
+    {% endblock %}
 </div>
-{% if is_paginated %}
-  <ul class="pagination">
-    {% if page_obj.has_previous %}
-      <li><a href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
-    {% else %}
-      <li class="disabled"><a>&laquo;</a></li>
-    {% endif %}
-    {% for i in paginator.page_range %}
-      {% if page_obj.number == i %}
-          <li style="background-color:red" ><a href="#">{{i}}</a> </li>
-      {% else %}
-        <li><a href="?page={{ i }}">{{ i }}</a></li>
-      {% endif %}
-    {% endfor %}
-    {% if page_obj.has_next %}
-      <li><a href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
-    {% else %}
-      <li><a href="#">&raquo;</a></li>
-    {% endif %}
-  </ul>
-{% endif %}
+

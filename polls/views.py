@@ -10,7 +10,7 @@ from .forms import QuestionForm, ChoiceForm
 class IndexView(generic.ListView):
     template_name = 'polls/index.html'
     context_object_name = 'latest_question_list'
-    paginate_by = 5
+    paginate_by = 9
 
     def get_queryset(self):
         """Return the last five published questions."""

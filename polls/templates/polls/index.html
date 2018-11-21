@@ -2,13 +2,22 @@
 
 {% block content %}
 {% if latest_question_list %}
-    <table>
-    {% for question in latest_question_list %}
-		<tr>
-        <td><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a></td>
-		</td>
-    {% endfor %}
-    </table>
+    <div class="container">
+        <div class="row">
+            {% for question in latest_question_list %}
+                <div class="col-md-4">
+                    <img class="img-fluid" 
+                        src="https://www.gettyimages.com/gi-resources/images/CreativeLandingPage/HP_Sept_24_2018/CR3_GettyImages-159018836.jpg"
+                        size=50%/>
+                    <br>
+                    <a class="btn btn-primary" href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a>
+                </div>
+            {% endfor %}
+        </div>
+        <div style="text-align: center; margin-top: 30px;">
+            {% include "shared/paginator.html" %}
+        </div>
+    </div>
 {% else %}
     <p>No polls are available.</p>
 {% endif %}

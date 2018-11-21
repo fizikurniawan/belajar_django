@@ -1,13 +1,13 @@
 ul {
     list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
     background-color: #333333;
 }
-
+ul li {
+    display: inline-block;
+}
 li {
-    float: left;
+    /*float: left;*/
+    text-align: center;
 }
 
 li a {
@@ -21,3 +21,16 @@ li a {
 li a:hover {
     background-color: #111111;
 }
+
+.pagination {
+	display: inline-block;
+}
+
+.pagination a.active {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.pagination a:hover:not(.active) {background-color: #ddd;}
+
+
